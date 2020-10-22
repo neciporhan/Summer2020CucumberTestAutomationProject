@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/vytrack/step_definitions",
         dryRun = false,
-        tags = "@parametrized_test"
+        tags = "@negative_login",
+        publish = true
 )
 public class CucumberRunner {
 }
