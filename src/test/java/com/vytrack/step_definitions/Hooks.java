@@ -3,6 +3,7 @@ package com.vytrack.step_definitions;
 import com.vytrack.utils.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +22,7 @@ public class Hooks {
 //    usually, we just use explicit and fluent waits.
 
     @Before
-    public void setup() {
+    public void setup(Scenario scenario) {
         System.out.println("::: Starting Automation:::");
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -29,17 +30,18 @@ public class Hooks {
 //    this hook will run only before scenarios with a tag @db
 
     /**
-     * @db
-     * Scenario: I don't know but here I'm connecting to DB
+     * @db Scenario: I don't know but here I'm connecting to DB
      * Given user runs following query "SELECT * ...."
+     * <p>
+     * order = 0 - to define hooks execution order
      */
-    @Before("@db")
-    public void dbSetup(){
+    @Before(value = "@db", order = 0)
+    public void dbSetup() {
         System.out.println("::: Connecting to the database:::");
     }
 
     @After("@db")
-    public void dbTearDown(){
+    public void dbTearDown() {
         System.out.println("::: Disconnecting from the database:::");
     }
 
